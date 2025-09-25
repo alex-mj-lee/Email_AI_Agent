@@ -35,6 +35,7 @@ docker compose up --build
 ```
 
 This will start:
+
 - **PostgreSQL Database** on port 5432
 - **Backend API** on port 8000
 - **Frontend Application** on port 3000
@@ -43,7 +44,7 @@ This will start:
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL database
 - OpenAI API key
 

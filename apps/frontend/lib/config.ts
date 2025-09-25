@@ -3,7 +3,7 @@ export const config = {
   // API Base URL - defaults to localhost:3001 for Node.js backend
   // Set NEXT_PUBLIC_API_BASE_URL in .env.local to override
   API_BASE:
-    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1",
+    process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api/v1',
 
   // SWR Configuration
   SWR_CONFIG: {
@@ -20,5 +20,5 @@ export const config = {
 };
 
 // Environment helpers
-export const isDevelopment = process.env.NODE_ENV === "development";
-export const isProduction = process.env.NODE_ENV === "production";
+export const isDevelopment = process.env.NODE_ENV === 'development';
+export const isProduction = process.env.NODE_ENV === 'production';

@@ -1,11 +1,11 @@
 export type TicketStatus =
-  | "New"
-  | "AI-Drafted"
-  | "Pending Review"
-  | "Sent"
-  | "Escalated"
-  | "Processing Failed";
-export type TicketCategory = "Refund" | "Payment" | "Invoice" | "Other";
+  | 'New'
+  | 'AI-Drafted'
+  | 'Pending Review'
+  | 'Sent'
+  | 'Escalated'
+  | 'Processing Failed';
+export type TicketCategory = 'Refund' | 'Payment' | 'Invoice' | 'Other';
 
 export interface Ticket {
   id: string;

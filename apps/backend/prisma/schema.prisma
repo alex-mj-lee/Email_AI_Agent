@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ticket {
+  id           Int                   @id @default(autoincrement())
+  customerName String                @map("customer_name")
+  email        String
+  subject      String
+  body         String
+  category     String?
+  aiResponse   String?               @map("ai_response")
+  status       String                @default("New")
+  priority     String?               @default("medium")
+  receivedAt   DateTime              @default(now()) @map("received_at")
+  embedding    Unsupported("vector")?
+
+  @@map("tickets")
+}

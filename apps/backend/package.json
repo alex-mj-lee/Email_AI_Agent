@@ -1,0 +1,49 @@
+{
+  "name": "ai-email-agent-backend",
+  "version": "1.0.0",
+  "description": "AI-powered customer support email backend API",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "seed": "ts-node src/scripts/seedEmails.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "email",
+    "customer-support",
+    "openai",
+    "typescript",
+    "express"
+  ],
+  "author": "Alex Lee",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.12.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "openai": "^5.10.2",
+    "pgvector": "^0.2.1",
+    "prisma": "^6.12.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.1.0",
+    "@types/pg": "^8.15.4",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

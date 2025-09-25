@@ -1,0 +1,477 @@
+{
+  "info": {
+    "name": "BE Email Agent API",
+    "description": "Complete API collection for the Backend Email Agent system",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"John Doe\",\n  \"customerEmail\": \"john.doe@example.com\",\n  \"subject\": \"Payment Issue\",\n  \"message\": \"I'm having trouble with my payment. The transaction keeps failing when I try to purchase your premium plan.\",\n  \"category\": \"Payment Failure\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a new support ticket"
+          }
+        },
+        {
+          "name": "Get All Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Get all tickets with optional pagination"
+          }
+        },
+        {
+          "name": "Get All Tickets with Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets?status=New&category=Payment Failure&page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "AI-Drafted",
+                  "description": "Filter by status (New, Processed, AI-Drafted, Processing Failed, Approved, Escalated)"
+                },
+                {
+                  "key": "category",
+                  "value": "Payment Failure",
+                  "description": "Filter by category (Refund, Payment Failure, Invoice, Technical Issue, Account, General)"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Number of items per page"
+                }
+              ]
+            },
+            "description": "Get tickets with status and category filters"
+          }
+        },
+        {
+          "name": "Get Single Ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}"]
+            },
+            "description": "Get a specific ticket by ID"
+          }
+        },
+        {
+          "name": "Get Enhanced Ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/enhanced",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "enhanced"]
+            },
+            "description": "Get enhanced ticket information with similar tickets and suggested actions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Operations",
+      "item": [
+        {
+          "name": "Generate AI Draft",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/generateDraft",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "generateDraft"]
+            },
+            "description": "Generate AI draft response for a ticket"
+          }
+        },
+        {
+          "name": "Update AI Draft",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aiResponse\": \"Dear Customer,\\n\\nThank you for contacting us regarding your payment issue. I understand how frustrating this can be.\\n\\nI have reviewed your account and can see the failed transaction attempts. This usually happens due to:\\n\\n1. Insufficient funds in your account\\n2. Your bank blocking the transaction for security reasons\\n3. Expired or incorrect card information\\n\\nTo resolve this, please:\\n\\n1. Check that your card information is correct and up to date\\n2. Ensure you have sufficient funds\\n3. Contact your bank to ensure they're not blocking the transaction\\n\\nIf the issue persists, please try using a different payment method or contact us with your transaction reference number.\\n\\nBest regards,\\nCustomer Support Team\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/edit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "edit"]
+            },
+            "description": "Update the AI-generated draft response manually"
+          }
+        },
+        {
+          "name": "Regenerate AI Draft",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/draft/regenerate",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                "{{ticketId}}",
+                "draft",
+                "regenerate"
+              ]
+            },
+            "description": "Regenerate AI draft response (useful when category changes)"
+          }
+        },
+        {
+          "name": "Classify Ticket",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/classify",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "classify"]
+            },
+            "description": "Manually classify a ticket using AI"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Workflow Operations",
+      "item": [
+        {
+          "name": "Approve Ticket",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "approve"]
+            },
+            "description": "Approve a ticket and mark it as sent"
+          }
+        },
+        {
+          "name": "Escalate Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Complex technical issue requiring specialized knowledge\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/escalate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "{{ticketId}}", "escalate"]
+            },
+            "description": "Escalate a ticket to human agent"
+          }
+        },
+        {
+          "name": "Get Workflow Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets", "stats"]
+            },
+            "description": "Get workflow statistics and metrics"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Endpoints",
+      "item": [
+        {
+          "name": "Create Refund Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Jane Smith\",\n  \"customerEmail\": \"jane.smith@example.com\",\n  \"subject\": \"Refund Request for Order #12345\",\n  \"message\": \"Hi, I would like to request a refund for my recent order #12345. The product arrived damaged and I would like to return it. Please let me know the process for getting my money back.\",\n  \"category\": \"Refund\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a sample refund request ticket"
+          }
+        },
+        {
+          "name": "Create Technical Issue",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Bob Johnson\",\n  \"customerEmail\": \"bob.johnson@example.com\",\n  \"subject\": \"Login Problem - Cannot Access Account\",\n  \"message\": \"I cannot log into my account. It says my password is incorrect but I am sure I am using the right one. I tried resetting it but didn't receive the email. Can you help me?\",\n  \"category\": \"Technical Issue\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a sample technical issue ticket"
+          }
+        },
+        {
+          "name": "Create Account Issue",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Alice Brown\",\n  \"customerEmail\": \"alice.brown@example.com\",\n  \"subject\": \"URGENT: Account Suspended Without Notice\",\n  \"message\": \"My account has been suspended suddenly without any notification. This is very urgent as I need access for my business operations. Please reactivate my account immediately.\",\n  \"category\": \"Account\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a sample urgent account issue ticket"
+          }
+        },
+        {
+          "name": "Create Invoice Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Michael Chen\",\n  \"customerEmail\": \"michael.chen@company.com\",\n  \"subject\": \"Invoice Request for Last Month\",\n  \"message\": \"Hello, I need an invoice for last month's subscription. Our accounting department requires it for expense reporting. Please send it to this email address.\",\n  \"category\": \"Invoice\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a sample invoice request ticket"
+          }
+        },
+        {
+          "name": "Create General Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Sarah Wilson\",\n  \"customerEmail\": \"sarah.wilson@email.com\",\n  \"subject\": \"Question about Premium Features\",\n  \"message\": \"Hi, I'm interested in upgrading to your premium plan. Can you tell me more about the additional features included and pricing options?\",\n  \"category\": \"General\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Create a sample general inquiry ticket"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Complete Workflow Tests",
+      "item": [
+        {
+          "name": "1. Create and Process Complete Workflow",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Test Workflow User\",\n  \"customerEmail\": \"workflow.test@example.com\",\n  \"subject\": \"Complete Workflow Test\",\n  \"message\": \"This is a test ticket to demonstrate the complete workflow from creation to approval.\",\n  \"category\": \"General\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tickets"]
+            },
+            "description": "Step 1: Create a ticket for workflow testing"
+          }
+        },
+        {
+          "name": "2. Generate Draft for New Ticket",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{workflowTicketId}}/generateDraft",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                "{{workflowTicketId}}",
+                "generateDraft"
+              ]
+            },
+            "description": "Step 2: Generate AI draft for the created ticket"
+          }
+        },
+        {
+          "name": "3. Get Enhanced Ticket Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{workflowTicketId}}/enhanced",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                "{{workflowTicketId}}",
+                "enhanced"
+              ]
+            },
+            "description": "Step 3: Get enhanced ticket information with suggested actions"
+          }
+        },
+        {
+          "name": "4. Approve Ticket",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tickets/{{workflowTicketId}}/approve",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                "{{workflowTicketId}}",
+                "approve"
+              ]
+            },
+            "description": "Step 4: Approve the ticket and mark as sent"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "description": "Base URL for the API"
+    },
+    {
+      "key": "ticketId",
+      "value": "5",
+      "description": "Ticket ID for testing individual ticket operations (update after creating tickets)"
+    },
+    {
+      "key": "workflowTicketId",
+      "value": "1",
+      "description": "Ticket ID for complete workflow testing (update after creating workflow test ticket)"
+    }
+  ]
+}

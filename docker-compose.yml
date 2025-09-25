@@ -1,26 +1,7 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: pgvector/pgvector:pg15
-    container_name: ai-email-agent-db
-    environment:
-      POSTGRES_DB: ai_email_agent
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./apps/backend/prisma/migrations:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - ai-email-network
+  # Using local PostgreSQL database (no container needed)
 
   # Backend API
   backend:
@@ -30,14 +11,12 @@ services:
     container_name: ai-email-agent-backend
     environment:
       NODE_ENV: production
-      DATABASE_URL: postgresql://postgres:postgres123@postgres:5432/ai_email_agent
+      DATABASE_URL: postgresql://local_user:local@host.docker.internal:5432/customer_support_ai
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       PORT: 8000
     ports:
       - "8000:8000"
-    depends_on:
-      postgres:
-        condition: service_healthy
+    # No database dependency - using local PostgreSQL
     volumes:
       - ./apps/backend:/app
       - /app/node_modules

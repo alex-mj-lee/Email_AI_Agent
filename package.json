@@ -22,7 +22,16 @@
     "clean": "cd apps/backend && npm run clean && cd ../frontend && rm -rf .next",
     "db:setup": "cd apps/backend && npm run db:generate && npm run db:migrate && npm run seed",
     "db:studio": "cd apps/backend && npm run db:studio",
-    "lint:frontend": "cd apps/frontend && npm run lint"
+    "lint:frontend": "cd apps/frontend && npm run lint",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up",
+    "docker:up:build": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "docker:down:volumes": "docker compose down -v",
+    "docker:logs": "docker compose logs",
+    "docker:logs:follow": "docker compose logs -f",
+    "docker:restart": "docker compose restart",
+    "docker:clean": "docker compose down -v && docker system prune -f"
   },
   "keywords": [
     "ai",

@@ -1,0 +1,46 @@
+{
+  "name": "ai-email-agent",
+  "version": "1.0.0",
+  "description": "AI-powered customer support email system - Full Stack Monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:backend && npm run install:frontend",
+    "install:backend": "cd apps/backend && npm install",
+    "install:frontend": "cd apps/frontend && npm install",
+    "dev:backend": "cd apps/backend && npm run dev",
+    "dev:frontend": "cd apps/frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "cd apps/backend && npm run build",
+    "build:frontend": "cd apps/frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "start:backend": "cd apps/backend && npm start",
+    "start:frontend": "cd apps/frontend && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "clean": "cd apps/backend && npm run clean && cd ../frontend && rm -rf .next",
+    "db:setup": "cd apps/backend && npm run db:generate && npm run db:migrate && npm run seed",
+    "db:studio": "cd apps/backend && npm run db:studio",
+    "lint:frontend": "cd apps/frontend && npm run lint"
+  },
+  "keywords": [
+    "ai",
+    "email",
+    "customer-support",
+    "monorepo",
+    "fullstack",
+    "typescript",
+    "nextjs",
+    "express"
+  ],
+  "author": "Alex Lee",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
